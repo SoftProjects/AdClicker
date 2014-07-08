@@ -1,4 +1,8 @@
-package com.example.advertisementapp;
+package com.advertisementapp.activity;
+
+import com.advertisementapp.R;
+import com.advertisementapp.R.layout;
+import com.advertisementapp.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

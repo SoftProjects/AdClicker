@@ -3,9 +3,9 @@ package com.advertisementapp.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.advertisementapp.R;
-import com.example.advertisementapp.R.layout;
-import com.example.advertisementapp.R.menu;
+import com.advertisementapp.R;
+import com.advertisementapp.R.layout;
+import com.advertisementapp.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
