@@ -65,3 +65,4 @@ privateLibrary/.settings/org.eclipse.core.resources.prefs
 android-support-v7-appcompat/.settings/org.eclipse.core.resources.prefs
 AdvertisementApp/.settings/org.eclipse.core.resources.prefs
 *.prefs
+*.properties
