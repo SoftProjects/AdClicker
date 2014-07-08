@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.advertisementapp"
+    package="com.advertisementapp"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -27,7 +27,7 @@
             android:label="@string/title_activity_promotion_detail" >
         </activity>
         <activity
-            android:name="com.example.advertisementapp.SearchActivity"
+            android:name="com.advertisementapp.activity.SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
     </application>

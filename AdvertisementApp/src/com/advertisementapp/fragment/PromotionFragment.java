@@ -8,7 +8,7 @@ import java.util.List;
 import com.advertisementapp.activity.PromotionDetailActivity;
 import com.advertisementapp.adapter.PromotionListAdapter;
 import com.advertisementapp.model.PromotionInfo;
-import com.example.advertisementapp.R;
+import com.advertisementapp.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;

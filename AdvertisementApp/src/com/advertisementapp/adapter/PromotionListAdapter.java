@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.advertisementapp.model.PromotionInfo;
-import com.example.advertisementapp.R;
+import com.advertisementapp.R;
 
 
 import android.content.Context;

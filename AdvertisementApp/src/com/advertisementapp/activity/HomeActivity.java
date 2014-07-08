@@ -3,7 +3,7 @@ package com.advertisementapp.activity;
 import java.util.Locale;
 
 import com.advertisementapp.fragment.PromotionFragment;
-import com.example.advertisementapp.R;
+import com.advertisementapp.R;
 
 
 import android.app.ActionBar;
