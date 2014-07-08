@@ -1,20 +1,27 @@
 package com.adClick.sdk.resource;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.ImageView;
 
+import com.adClick.sdk.data.httplinker.HttpLinkClient;
+import com.adClick.sdk.data.httplinker.HttpManager;
+import com.adClick.sdk.data.httplinker.ImageLoader;
 import com.adClick.sdk.weibo.WeiboAppBinder;
 
+@SuppressLint("HandlerLeak")
 public class Resourcer {
-	private static String PREFERENCES_NAME = "adclicker";
+	private static final String IMAGE_CACHE = "/mnt/sdcard/test/";
+	private static final int NUM_OF_IMAGELOADER = 5;
+	private static final String PREFERENCES_NAME = "adclicker";
 	private WeiboAppBinder weibo;
 	private static Resourcer rs = null;
-	private SharedPreferences pref;
 	private Context context;
-
+	private HttpManager httpmanager;
+	
 	public static Resourcer instance(Context context){
 		if(rs == null) rs = new Resourcer(context);
 		return rs;
@@ -22,8 +29,9 @@ public class Resourcer {
 	
 	private Resourcer(Context context){
 		this.context = context;
-       	pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
+//       	pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
 		weibo = new WeiboAppBinder();
+		httpmanager = new HttpManager(IMAGE_CACHE, NUM_OF_IMAGELOADER);
 	}
 
 //	public void share(){
@@ -36,17 +44,36 @@ public class Resourcer {
 //	}
 	
 	public WeiboAppBinder getWeibo() {
-        Editor editor = pref.edit();
-        editor.putString("a", "aa");
-        editor.commit();
+//        Editor editor = pref.edit();
+//        editor.putString("a", "aa");
+//        editor.commit();
 		return weibo;
 	}
 	
-	public void sendRequest(){
-		
-	}
-	
-//	public Bitmap getBitmap	(final ImageView iv,String url){
+//	public void sendRequest(){
 //		
 //	}
+	
+	public Bitmap setBitmap	(final ImageView iv,String url){
+		ImageLoader il = new ImageLoader(IMAGE_CACHE);
+		Bitmap bitmap = il.loadLocalBitmap(url);
+		if(bitmap!=null) {
+			iv.setImageBitmap(bitmap);
+			return bitmap;
+		}
+		
+		Handler handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				iv.setImageBitmap((Bitmap)msg.obj);    
+			}
+		};
+		
+		httpmanager.getImage(url, handler);
+		return null;
+	}
+	
+	public HttpLinkClient getHttpClient(){
+		return httpmanager.getClient();
+	}
 }

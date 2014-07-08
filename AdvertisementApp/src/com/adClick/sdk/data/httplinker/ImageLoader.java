@@ -56,6 +56,7 @@ public class ImageLoader {
 		return null;    
 	}
     
+    //TODO
     private String getBitmapName(String imageURL){
         String bitmapName = imageURL.substring(imageURL.lastIndexOf("/") + 1);  
         return bitmapName;
