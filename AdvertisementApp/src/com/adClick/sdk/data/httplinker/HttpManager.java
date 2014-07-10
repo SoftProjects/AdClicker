@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.adClick.sdk.data.httplinker.backgroundService.BackgroundHttpService;
+import com.adClick.sdk.data.httplinker.database.RequestQueueDB;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -16,13 +20,18 @@ public class HttpManager {
 	private List<ImageTask> imageQueue;
 	private HttpLinkClient client;
 	
-	public HttpManager(String imageCacheDir,int numOfImageLoader){
-		for (int i = 0; i < numOfImageLoader; i++) {
-			imageLoaders.add(new ImageLoader(imageCacheDir));
-		}
+	private RequestQueueDB db;
+	private Context context;
+	public HttpManager(String imageCacheDir,int numOfImageLoader,Context context){
+		context = context.getApplicationContext();
 		client = new HttpLinkClient();
 		imageQueue = new ArrayList<ImageTask>();
 		imageLoaders = new ArrayList<ImageLoader>();
+		
+		for (int i = 0; i < numOfImageLoader; i++) {
+			imageLoaders.add(new ImageLoader(imageCacheDir));
+		}
+
 		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -37,10 +46,14 @@ public class HttpManager {
 			}
 		}, 1000, 2000);
 		
+		db = new RequestQueueDB(context);
+		this.context = context;
 	}
 	
 	public void addRequestQueue(HttpTask task){
-		//TODO
+		db.insert(task);
+		//TODO Service
+		context.startService(new Intent(context,BackgroundHttpService.class));
 	}
 	
 	public void runHttp(HttpTask task,HttpHandler handler){

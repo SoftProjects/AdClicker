@@ -11,12 +11,13 @@ public class WeiboAppBinder{
 	public static final String REDIRECT_URL = "http://www.baidu.com/";
 	public static final String SCOPE = "";
 	
-	public void getWeiboAuth(Activity context){
+	public void getWeiboAuth(Activity activity){
+		Context context = activity.getApplicationContext();
 		Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(context);
         if (mAccessToken.isSessionValid()) {
 
         }else{
-        	context.startActivityForResult(new Intent(context,AuthorActivity.class), 0);
+        	activity.startActivityForResult(new Intent(context,AuthorActivity.class), 0);
         }     
 	}
 	

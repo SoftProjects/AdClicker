@@ -25,7 +25,7 @@ public class HttpTask {
 	}
 	public void addParameter(List<NameValuePair> nameValuePairs){
 		for(NameValuePair pair:nameValuePairs) 
-			nameValuePairs.add(pair);
+			this.nameValuePairs.add(pair);
 	}
 
 	public String getBaseurl() {

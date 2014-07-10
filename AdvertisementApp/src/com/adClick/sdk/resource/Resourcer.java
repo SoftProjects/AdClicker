@@ -1,6 +1,5 @@
 package com.adClick.sdk.resource;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -9,18 +8,19 @@ import android.widget.ImageView;
 
 import com.adClick.sdk.data.httplinker.HttpLinkClient;
 import com.adClick.sdk.data.httplinker.HttpManager;
+import com.adClick.sdk.data.httplinker.HttpTask;
 import com.adClick.sdk.data.httplinker.ImageLoader;
+import com.adClick.sdk.data.httplinker.backgroundService.BackgroundHttpService;
 import com.adClick.sdk.weibo.WeiboAppBinder;
 
-@SuppressLint("HandlerLeak")
 public class Resourcer {
 	private static final String IMAGE_CACHE = "/mnt/sdcard/test/";
 	private static final int NUM_OF_IMAGELOADER = 5;
 	private static final String PREFERENCES_NAME = "adclicker";
 	private WeiboAppBinder weibo;
 	private static Resourcer rs = null;
-	private Context context;
 	private HttpManager httpmanager;
+	private Context context;
 	
 	public static Resourcer instance(Context context){
 		if(rs == null) rs = new Resourcer(context);
@@ -28,25 +28,21 @@ public class Resourcer {
 	}
 	
 	private Resourcer(Context context){
-		this.context = context;
-//       	pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
+		this.context = context.getApplicationContext();
 		weibo = new WeiboAppBinder();
-		httpmanager = new HttpManager(IMAGE_CACHE, NUM_OF_IMAGELOADER);
+		httpmanager = new HttpManager(IMAGE_CACHE, NUM_OF_IMAGELOADER,this.context);
 	}
 
 //	public void share(){
 //		Intent intent=new Intent(Intent.ACTION_SEND); 
 //		intent.setType("text/*"); 
-//		intent.putExtra(Intent.EXTRA_SUBJECT, "分享"); 
-//		intent.putExtra(Intent.EXTRA_TEXT, "终于可以了!!!");  
+//		intent.putExtra(Intent.EXTRA_SUBJECT, "鍒嗕韩"); 
+//		intent.putExtra(Intent.EXTRA_TEXT, "缁堜簬鍙互浜�!!!");  
 //		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 //		context.startActivity(Intent.createChooser(intent, "aa")); 
 //	}
 	
 	public WeiboAppBinder getWeibo() {
-//        Editor editor = pref.edit();
-//        editor.putString("a", "aa");
-//        editor.commit();
 		return weibo;
 	}
 	
@@ -73,7 +69,18 @@ public class Resourcer {
 		return null;
 	}
 	
-	public HttpLinkClient getHttpClient(){
-		return httpmanager.getClient();
+	public HttpManager getHttpmanager() {
+		return httpmanager;
+	}
+
+	public void test(){
+		HttpTask task = new HttpTask("aaaa", HttpTask.HTTP_GET);
+		task.addParameter("aas", "aaa");
+		task.addParameter("sadads", "aaa");
+		httpmanager.addRequestQueue(task );
+//   	pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
+//      Editor editor = pref.edit();
+//      editor.putString("a", "aa");
+//      editor.commit();
 	}
 }

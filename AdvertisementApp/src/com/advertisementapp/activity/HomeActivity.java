@@ -2,6 +2,7 @@ package com.advertisementapp.activity;
 
 import java.util.Locale;
 
+import com.adClick.sdk.resource.Resourcer;
 import com.advertisementapp.fragment.PromotionFragment;
 import com.advertisementapp.R;
 
@@ -42,6 +43,9 @@ public class HomeActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+		Resourcer resourcer = Resourcer.instance(this);
+		resourcer.test();
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		 actionBar.setDisplayShowTitleEnabled(false);
