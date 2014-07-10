@@ -44,7 +44,7 @@ public class HomeActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_home);
 
 		Resourcer resourcer = Resourcer.instance(this);
-		resourcer.test();
+		
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
