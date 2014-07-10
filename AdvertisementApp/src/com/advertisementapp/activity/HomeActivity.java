@@ -43,7 +43,7 @@ public class HomeActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		Resourcer resourcer = Resourcer.instance(this);
+//		Resourcer resourcer = Resourcer.instance(this);
 //		resourcer.test();
 		
 		
